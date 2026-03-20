@@ -43,15 +43,14 @@ public class ShipAgent : Agent
         sensor.AddObservation(rb.linearVelocity.y / 10f);
 
         // 3-4. Next rock pair info
-        Transform nextRock = rockSpawner.GetNextPipe(transform.position.x);
+        Transform nextRock = rockSpawner.GetNextPipe(transform.localPosition.x);
         if (nextRock != null)
         {
-            // Horizontal distance to next rock pair (normalized)
-            float horizontalDist = nextRock.position.x - transform.position.x;
+            float horizontalDist = nextRock.localPosition.x - transform.localPosition.x;
             sensor.AddObservation(horizontalDist / 15f);
 
-            // Vertical distance from bird to gap center (normalized)
-            float gapCenterY = nextRock.GetComponent<PipePair>().GapCenterY;
+            // Gap center in local space
+            float gapCenterY = nextRock.localPosition.y;
             sensor.AddObservation((gapCenterY - transform.localPosition.y) / ceilingY);
         }
         else
@@ -72,7 +71,7 @@ public class ShipAgent : Agent
         }
 
         // Small survival reward each step
-        AddReward(0.01f);
+        AddReward(0.001f);
 
         // Kill episode if bird goes out of bounds
         if (transform.localPosition.y > ceilingY || transform.localPosition.y < floorY)
@@ -92,7 +91,7 @@ public class ShipAgent : Agent
     {
         if (other.CompareTag("ScoreZone"))
         {
-            AddReward(1.0f);
+            AddReward(2.0f);
         }
     }
 

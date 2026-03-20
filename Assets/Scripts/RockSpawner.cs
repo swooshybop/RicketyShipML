@@ -26,12 +26,13 @@ public class RockSpawner : MonoBehaviour
     }
 
     void SpawnRockPair()
-    {
-        float randomY = Random.Range(minY, maxY);
-        Vector3 spawnPos = new Vector3(spawnX, randomY, 0f);
-        GameObject rock = Instantiate(rockPairPrefab, spawnPos, Quaternion.identity);
-        activeRocks.Add(rock);
-    }
+{
+    float randomY = Random.Range(minY, maxY);
+    Vector3 spawnPos = new Vector3(spawnX, randomY, 0f);
+    GameObject rock = Instantiate(rockPairPrefab, transform);
+    rock.transform.localPosition = spawnPos;
+    activeRocks.Add(rock);
+}
 
     /// <summary>
     /// Called by BirdAgent.OnEpisodeBegin() to reset the environment.
@@ -52,9 +53,8 @@ public class RockSpawner : MonoBehaviour
     /// Returns the transform of the nearest rock pair that the bird hasn't passed yet.
     /// Used by BirdAgent.CollectObservations().
     /// </summary>
-    public Transform GetNextPipe(float birdX)
+    public Transform GetNextPipe(float birdLocalX)
     {
-        // Clean up any destroyed references
         activeRocks.RemoveAll(r => r == null);
 
         Transform closest = null;
@@ -62,8 +62,7 @@ public class RockSpawner : MonoBehaviour
 
         foreach (var rock in activeRocks)
         {
-            float dist = rock.transform.position.x - birdX;
-            // Only consider pipes ahead of (or at) the bird
+            float dist = rock.transform.localPosition.x - birdLocalX;
             if (dist > -0.5f && dist < closestDist)
             {
                 closestDist = dist;
