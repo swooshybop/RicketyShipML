@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "com.unity.feature.2d": "2.0.1",
+    "com.unity.ml-agents": "4.0.2"
+  }
+}
