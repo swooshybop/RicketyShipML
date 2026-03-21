@@ -65,6 +65,8 @@ public class ShipAgent : Agent
     {
         // Discrete action: 0 = do nothing, 1 = flap
         int flap = actions.DiscreteActions[0];
+        Debug.Log($"Action: {flap}, Bird Y: {transform.localPosition.y}, Vel: {rb.linearVelocity.y}");
+    
         if (flap == 1)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, flapForce);
