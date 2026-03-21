@@ -413,10 +413,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rockPairPrefab: {fileID: 1581972308123844947, guid: cfbb77bfb0fb4114bbddae68f4db5da3, type: 3}
-  spawnInterval: 2
+  spawnInterval: 5
   spawnX: 10
-  minY: -1.5
-  maxY: 1.5
+  minY: -1.75
+  maxY: 1.75
 --- !u!1 &4525922681350696364
 GameObject:
   m_ObjectHideFlags: 0
